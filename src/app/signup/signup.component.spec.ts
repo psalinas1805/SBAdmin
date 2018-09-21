@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { SignupComponent } from './signup.component'
 import { SignupModule } from './signup.module'
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('SignupComponent', () => {
   let component: SignupComponent
@@ -15,6 +16,7 @@ describe('SignupComponent', () => {
         SignupModule,
         RouterTestingModule,
         BrowserAnimationsModule,
+        ReactiveFormsModule,
       ],
     })
     .compileComponents()

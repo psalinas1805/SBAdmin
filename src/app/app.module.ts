@@ -31,8 +31,8 @@ export const createTranslateLoader = (http: HttpClient) => {
         BrowserAnimationsModule,
         HttpClientModule,
         FormsModule,
-        HttpModule,
         ReactiveFormsModule,
+        HttpModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

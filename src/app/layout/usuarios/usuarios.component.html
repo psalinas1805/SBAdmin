@@ -1,0 +1,57 @@
+<div [@routerTransition]>
+
+
+
+
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-outline-primary" (click)="addUser()">Crear usuario</button>
+        </div>
+
+    </div>
+    <br>
+
+
+    <div class="row animated fadeIn fast">
+        <div class="col-md-12">
+
+            <div class="table-responsive">
+
+                <div class="card mb-5">
+                    <div class="card-header">Usuarios</div>
+                    <table class="card-body table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Usuario</th>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of usuarios">
+                                <td>{{user.user_id}}</td>
+                                <td>{{user.username}}</td>
+                                <td>{{user.nombre}} {{user.apellido}}</td>
+                                <td>{{user.email}}</td>
+                                <td>
+                                    <div class=" no-padding d-flex justify-content-lg-around align-items-lg-start">
+                                        <button type="button" class="btn btn-outline-primary" [routerLink]="['/signup',user.user_id]">Editar</button>
+
+                                        <!-- <button class="btn btn-outline-primary" (click)="editUser()">Editar</button> -->
+
+                                        <button class="btn btn-outline-primary" (click)="editUser(user.user_id)">Desactivar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

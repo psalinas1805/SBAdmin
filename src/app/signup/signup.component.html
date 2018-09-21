@@ -1,28 +1,154 @@
 <div class="login-page" [@routerTransition]>
-    <div class="row justify-content-md-center">
-        <div class="col-md-4">
-            <img class="user-avatar" src="assets/images/logo.png" width="150px" />
-            <h1>SB Admin BS4 Angular5</h1>
-            <form role="form">
-                <div class="form-content">
-                    <div class="form-group">
-                        <input type="text" class="form-control input-underline input-lg" id="" placeholder="Full Name">
+    <h4>Agregar Usuario</h4>
+
+    <button class="btn btn-outline-danger" [routerLink]="['/usuarios']">
+      Regresar
+    </button>
+    <hr>
+
+    <div class="row animated fadeIn fast sign-container ">
+
+
+        <form [formGroup]="forma" (ngSubmit)="addUser()" class="col-md-8">
+
+
+
+            <div class="form-group row" [ngClass]="{'has-danger':!forma.get('usuario').valid && forma.controls['usuario'].touched}">
+
+                <label class="col-3 col-form-label">Usuario</label>
+                <div class="col">
+
+                    <input class="form-control" type="text" placeholder="Usuario" formControlName="usuario">
+
+                    <div *ngIf="!forma.controls['usuario'].valid && forma.controls['usuario'].touched" class="form-control-feedback">
+                        El usuario es necesario.
+                    </div>
+                    <div *ngIf="forma.controls['usuario'].status === 'PENDING'">
+                        Checking...
+                    </div>
+                    <div *ngIf="forma.controls['usuario'].status === 'VALID'">
+                        El usuario esta disponible!
                     </div>
 
-                    <div class="form-group">
-                        <input type="text" class="form-control input-underline input-lg" id="" placeholder="Email">
-                    </div>
-
-                    <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="Repeat Password">
+                    <div *ngIf="forma.controls['usuario'].errors && !forma.controls['usuario'].pristine">
+                        Oh no, Este usuario ya está siendo usado!
                     </div>
                 </div>
-                <a class="btn rounded-btn" [routerLink]="['/dashboard']"> Register </a>&nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a>
-            </form>
+            </div>
+
+            <div class="form-group row" [ngClass]="{'has-danger':!forma.get('password').valid && forma.controls['password'].touched}">
+                <label class="col-3 col-form-label">Contraseña</label>
+                <div class="col">
+                    <input class="form-control" type="password" placeholder="Contraseña" formControlName="password">
+
+                    <div *ngIf="!forma.controls['password'].valid && forma.controls['password'].touched" class="form-control-feedback">
+                        La contraseña es necesario.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row" [ngClass]="{'has-danger':!forma.get('nombre').valid && forma.controls['nombre'].touched}">
+                <label class="col-3 col-form-label">Nombre</label>
+                <div class="col">
+                    <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre">
+                    <div *ngIf="!forma.controls['nombre'].valid && forma.controls['nombre'].touched" class="form-control-feedback">
+                        El nombre es necesario.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row" [ngClass]="{'has-danger':!forma.get('apellido').valid && forma.controls['apellido'].touched}">
+                <label class="col-3 col-form-label">Apellido</label>
+                <div class="col">
+                    <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido">
+                    <div *ngIf="!forma.controls['apellido'].valid && forma.controls['apellido'].touched" class="form-control-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row" [ngClass]="{'has-danger':!forma.get('correo').valid && forma.controls['correo'].touched}">
+                <label class="col-3 col-form-label">Correo</label>
+                <div class="col">
+                    <input class="form-control" type="text" placeholder="Correo electrónico" formControlName="correo">
+                    <div *ngIf="!forma.controls['correo'].valid && forma.controls['correo'].touched" class="form-control-feedback">
+                        Campo requerido
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row" [ngClass]="{'has-danger':!forma.get('telefono').valid && forma.controls['telefono'].touched}">
+                <label class="col-3 col-form-label">Celular</label>
+                <div class="col">
+                    <input class="form-control" type="text" placeholder="Formato 11 dígitos ej: 56998765432" formControlName="telefono">
+                    <div *ngIf="!forma.controls['telefono'].valid && forma.controls['telefono'].touched && forma.controls['telefono'].pristine" class="form-control-feedback">
+                        Campo Requerido
+                    </div>
+                    <div *ngIf="!forma.controls['telefono'].valid && forma.controls['telefono'].touched && !forma.controls['telefono'].pristine" class="form-control-feedback">
+                        Formato incorrecto, debe tener 11 dígitos.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row" [ngClass]="{'has-danger':!forma.get('direccion').valid && forma.controls['direccion'].touched}">
+                <label class="col-3 col-form-label">Dirección</label>
+                <div class="col">
+                    <input class="form-control" type="text" placeholder="Dirección ej: mapocho 2342" formControlName="direccion">
+                    <div *ngIf="!forma.controls['direccion'].valid && forma.controls['direccion'].touched" class="form-control-feedback">
+                        El Celular es necesario.
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row" [ngClass]="{'has-danger':!forma.get('region').valid && forma.controls['region'].touched}">
+                <label class="col-3 col-form-label">Región</label>
+                <div class="col">
+                    <select formControlName="region" class="form-control">
+                  <option>Selecciona</option>
+                  <option [value]="region.id" *ngFor="let region of regiones">{{ region.name}}</option>
+                </select>
+                </div>
+            </div>
+
+
+            <div class="form-group row" [ngClass]="{'has-danger':!forma.get('comuna').valid && forma.controls['comuna'].touched}">
+                <label class="col-3 col-form-label">Comuna</label>
+                <div class="col">
+                    <select formControlName="comuna" class="form-control">
+                  <option>Selecciona</option>
+                  <option [value]="comuna.id" *ngFor="let comuna of comunas">{{ comuna.name}}</option>
+    
+                </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <!-- <button type="submit" [disabled]="forma.invalid" class="btn btn-outline-primary "> -->
+                <button type="submit" class="btn btn-outline-primary">
+                Guardar
+              </button>
+            </div>
+            <div class="row" *ngIf="this.submit">
+                <label class="alert alert-success" role="alert" *ngIf="this.result">Usuario creado exitósamente</label>
+                <label class="alert alert-danger" role="alert" *ngIf="!this.result ">Error, Validar datos</label>
+            </div>
+
+        </form>
+
+
+
+    </div>
+
+
+    <div class="row animated fadeIn fast">
+        <div class="col-3-18">
+            {{ forma.valid}} {{forma.status}} {{ forma.value | json}} {{nuevo}}
         </div>
     </div>
+
+    <!-- <div>
+        <pre>{{ forma | json}}</pre>
+    </div> -->
 </div>
