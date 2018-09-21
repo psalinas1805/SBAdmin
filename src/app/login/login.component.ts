@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
     responseData: any;
     userData = {"username": "", "password": ""};
     divAccess = false;
-
     constructor(private usuarioService: UsuariosService, private router: Router) { }
 
 
@@ -27,16 +26,14 @@ export class LoginComponent implements OnInit {
 
     login() {
         console.log("login: ");
-        
-        console.log(this.userData.username);
-        console.log(this.userData.password);
-        
+               
         if (this.userData.username  && this.userData.password) {
         this.usuarioService.postData(this.userData, 'login').then((result) => {   
             this.responseData = result;
             if (this.responseData.userData) {
               localStorage.setItem('userData', JSON.stringify(this.responseData));
               localStorage.setItem('isLoggedin', 'true');
+              console.log(this.responseData.userData);
               this.router.navigate(['/dashboard', this.responseData]);
             } else {
               this.divAccess = true;
