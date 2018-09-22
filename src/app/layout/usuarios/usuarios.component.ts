@@ -34,7 +34,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   addUser() {
-    this.router.navigate(['signup','nuevo']);
+    this.router.navigate(['/adduser','nuevo']);
   }
   editUser(user_id) {
     this.router.navigate(['signup','user_id']);

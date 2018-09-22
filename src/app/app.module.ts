@@ -43,6 +43,11 @@ export const createTranslateLoader = (http: HttpClient) => {
         AppRoutingModule
     ],
     declarations: [AppComponent],
+    exports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule
+      ],
     providers: [
         AuthGuard,
         UsuariosService
