@@ -1,32 +1,28 @@
-<div [@routerTransition]>
-
-
-
-    <a routerLink="/adduser" routerLinkActive="active">Crisis Center</a>
-    <div class="row">
-        <div class="col-md-12 text-right">
-            <button class="btn btn-outline-primary" (click)="addUser()">Crear usuario</button>
-        </div>
-
+<div class="row">
+    <div class="col">
+        <h4>Lista de Usuarios</h4>
     </div>
-    <br>
+    <div class="col-md-6 text-right">
+        <button class="btn btn-outline-primary" (click)="addUser()">Crear usuario</button>
+    </div>
 
+</div>
+<br>
+<div [@routerTransition]>
 
     <div class="row animated fadeIn fast">
         <div class="col-md-12">
-
             <div class="table-responsive">
-
                 <div class="card mb-5">
-                    <div class="card-header">Usuarios</div>
+
                     <table class="card-body table table-hover">
-                        <thead>
+                        <thead class="card-header">
                             <tr>
                                 <th>Id</th>
                                 <th>Usuario</th>
                                 <th>Nombre</th>
                                 <th>Correo</th>
-                                <th>Acción</th>
+                                <th class="text-center">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,12 +32,17 @@
                                 <td>{{user.nombre}} {{user.apellido}}</td>
                                 <td>{{user.email}}</td>
                                 <td>
-                                    <div class=" no-padding d-flex justify-content-lg-around align-items-lg-start">
-                                        <button type="button" class="btn btn-outline-primary" [routerLink]="['/signup',user.user_id]">Editar</button>
 
-                                        <!-- <button class="btn btn-outline-primary" (click)="editUser()">Editar</button> -->
-
-                                        <button class="btn btn-outline-primary" (click)="editUser(user.user_id)">Desactivar</button>
+                                    <div class="row text-right">
+                                        <div class="col-auto text-right">
+                                            <button type="button" class="btn btn-outline-primary" (click)="editUser(user.user_id)">Editar</button>
+                                        </div>
+                                        <div class="col-auto text-right">
+                                            <button type="button" class="btn btn-outline-primary" (click)="detailUser(user.user_id)">Ver Acuarios</button>
+                                        </div>
+                                        <div class="col-auto text-right">
+                                            <button class="btn btn-outline-primary" (click)="editUser(user.user_id)">Desactivar</button>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>

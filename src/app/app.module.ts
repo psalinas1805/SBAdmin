@@ -12,6 +12,7 @@ import { AuthGuard } from './shared';
 import { UsuariosService } from './shared/services/usuarios.service';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
@@ -31,6 +32,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         BrowserAnimationsModule,
         HttpClientModule,
         FormsModule,
+        ToastrModule.forRoot(),
         ReactiveFormsModule,
         HttpModule,
         TranslateModule.forRoot({

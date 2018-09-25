@@ -17,8 +17,10 @@ const routes: Routes = [
             { path: 'components', loadChildren: './bs-component/bs-component.module#BsComponentModule' },
             { path: 'blank-page', loadChildren: './blank-page/blank-page.module#BlankPageModule' },
             { path: 'usuarios', loadChildren: './usuarios/usuarios.module#UsuariosModule' },
-            { path: 'adduser/:user_id', loadChildren: './adduser/adduser.module#AdduserModule' }
-        
+            { path: 'adduser/:user_id', loadChildren: './adduser/adduser.module#AdduserModule' },
+            { path: 'prueba', loadChildren: './prueba/prueba.module#PruebaModule' },
+            { path: 'detailuser/:user_id', loadChildren: './detailuser/detailuser.module#DetailuserModule' },
+            { path: 'detailacuario/:user_id/:idacuario', loadChildren: './detailacuario/detailacuario.module#DetailacuarioModule' }
 
         ]
     }

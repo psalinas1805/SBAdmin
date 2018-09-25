@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { UsuariosService } from '../../shared/services/usuarios.service';
 import { Usuario } from "../../shared/interfaces/usuario.interface";
+import { ToastrService } from 'ngx-toastr';
 
-import { FormGroup, FormControl, Validators} from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Observable } from "rxjs/Rx";
 
 @Component({
@@ -17,107 +18,162 @@ import { Observable } from "rxjs/Rx";
 
 })
 export class AdduserComponent implements OnInit {
-  
-  forma: FormGroup;
 
+  result: boolean;
+  forma: FormGroup;
   regiones: any;
   comunas: any;
+  submit: boolean = false;
   idregion: number;
   idusuario: any;
-  result;
-  submit;
-  usuario: Usuario = {
-      username: "",
-      password: "",
-      nombre: "",
-      apellido: "",
-      email: "",
-      direccion: "",
-      comuna: "Seleccione",
-      ciudad: "Seleccione",
-      telefono: ""
-    }
+  nuevo: boolean = true;
+  user_id = { "user_id": "" };
 
-  constructor(private usuarioService: UsuariosService, private router: Router) { 
-    
+  usuario: Usuario = {
+    username: "",
+    password: "",
+    nombre: "",
+    apellido: "",
+    email: "",
+    direccion: "",
+    comuna: "Seleccione",
+    ciudad: "Seleccione",
+    telefono: ""
+  }
+
+  usuariov: Usuario = {
+    username: "",
+    password: "",
+    nombre: "",
+    apellido: "",
+    email: "",
+    direccion: "",
+    comuna: "Seleccione",
+    ciudad: "Seleccione",
+    telefono: ""
+  }
+  usuarioc: any = {
+    username: "",
+    password: "",
+    nombre: "",
+    apellido: "",
+    correo: "",
+    direccion: "",
+    comuna: "Seleccione",
+    ciudad: "Seleccione",
+    telefono: ""
+  }
+
+
+  constructor(private usuarioService: UsuariosService, private router: Router, private activatedRoute: ActivatedRoute, private toastr: ToastrService) {
+
+
+    console.log("usuario inicial ");
+    console.log(this.usuario);
+
+
     this.forma = new FormGroup({
-      'usuario': new FormControl("", [ Validators.required, Validators.minLength(3)], this.validaUsuario.bind(this) ),
+      'username': new FormControl("", [Validators.required, Validators.minLength(3)], this.validaUsuario.bind(this)),
       'password': new FormControl("", [Validators.required, Validators.minLength(6)]),
       'nombre': new FormControl("", [Validators.required, Validators.minLength(3)]),
       'apellido': new FormControl("", [Validators.required]),
-      'correo': new FormControl("", [Validators.required, Validators.email]),
-      'telefono': new FormControl("", [Validators.required, Validators.minLength(11),Validators.maxLength(11)]),
+      'email': new FormControl("", [Validators.required, Validators.email]),
+      'telefono': new FormControl("", [Validators.required, Validators.minLength(11), Validators.maxLength(11)]),
       'direccion': new FormControl("", [Validators.required, Validators.minLength(3)]),
-      'region': new FormControl("Selecciona", [Validators.required]),
+      'ciudad': new FormControl("Selecciona", [Validators.required]),
       'comuna': new FormControl("Selecciona", [Validators.required])
     })
-  
+
+    this.activatedRoute.params
+      .subscribe(param => {
+        this.idusuario = param['user_id'];
+        this.user_id.user_id = this.idusuario;
+        console.log("El id usuario es: ");
+        console.log(this.idusuario);
+
+        if (this.idusuario != "nuevo") {
+          this.nuevo = false;
+          this.cargaDatosForma(this.user_id);
+        }
+      });
+
+
     this.usuarioService.getRegion('getRegiones')
-    .subscribe(data => {
-      this.regiones = data.regionesData;
-      //console.log(this.regiones);
+      .subscribe(data => {
+        this.regiones = data.regionesData;
 
-    });
+      });
 
-    this.forma.controls.region.valueChanges
-    .subscribe(data => {
-      this.idregion = data;
-      console.log(this.idregion);
 
-      if (this.idregion > 0) {
-        console.log("Entra a comunas");
+    
+      
 
-        this.usuarioService.getComuna(this.idregion, 'getComunas')
-          // tslint:disable-next-line:no-shadowed-variable
-          .subscribe(data => {
-            this.comunas = data.comunasData;
-            console.log(this.comunas);
-          });
-      }
+      this.forma.controls.ciudad.valueChanges
+        .subscribe(data => {
+          this.idregion = data;
+          console.log(this.idregion);
 
-    })
+          if (this.idregion > 0) {
+            console.log("Entra a comunas");
+
+            this.usuarioService.getComuna(this.idregion, 'getComunas')
+              // tslint:disable-next-line:no-shadowed-variable
+              .subscribe(data => {
+                this.comunas = data.comunasData;
+                console.log(this.comunas);
+              });
+          }
+
+        })
+    
   }
 
   ngOnInit() {
+
+
   }
 
   addUser() {
     console.log(this.forma);
     this.submit = true;
-    
-    if(this.idusuario==="nuevo"){
+
+    if (this.idusuario === "nuevo") {
       //insertando
       console.log("Insertando");
-      
+
       this.usuarioService.signUp(this.forma.value, 'signup')
-      .subscribe(data => {
-        if (data.userData) {
-          this.result = true;
-          // this.limpiarForma();
-        }
-        else {
-          this.result = false;
-        }
-      });
-    }else{
+        .subscribe(data => {
+          if (data.userData) {
+            this.result = true;
+            this.limpiarForma();
+            this.showSuccess('Usuario creado exitosamente');
+
+          }
+          else {
+            this.result = false;
+          }
+        });
+    } else {
       //actualizando
       console.log("Editando");
-      
+
       this.usuarioService.editUser(this.forma.value, 'editUser')
-      .subscribe(data => {
-        if (data.userData) {
-          this.result = true;
-          // this.limpiarForma();
-        }
-        else {
-          this.result = false;
-        }
-      });
+        .subscribe(data => {
+          if (data.userData) {
+            this.result = true;
+            //this.limpiarForma();
+            this.showSuccess('Configuración guardada exitosamente');
+
+          }
+          else {
+            this.result = false;
+          }
+        });
     }
-   }
+  }
 
 
-validaUsuario(control: FormControl): Promise<any> | Observable<any> {
+  validaUsuario(control: FormControl): Promise<any> | Observable<any> {
 
     let user: any = { "username": "" };
     user.username = control.value;
@@ -139,6 +195,41 @@ validaUsuario(control: FormControl): Promise<any> | Observable<any> {
       }
     )
     return promesa;
+  }
+
+  limpiarForma() {
+    this.forma.reset(this.usuariov);
+  }
+
+  cargaDatosForma(user_id) {
+    this.forma.controls['username'].disable();
+    this.forma.controls['password'].disable();
+
+    this.usuarioService.getUser(user_id, 'getUser')
+      .subscribe(data => {
+        this.usuarioc = data.userData[0];
+
+        console.log("cargando data: ");
+        console.log(this.usuarioc);
+        this.forma.setValue(this.usuarioc);
+      });
+
+  }
+
+
+  showSuccess(text) {
+    this.toastr.success(text, 'Felicidades!');
+  }
+
+
+  showError() {
+    this.toastr.error('This is not good!', 'Oops!');
+  }
+  showWarning() {
+    this.toastr.warning('You are being warned.', 'Alert!');
+  }
+  showInfo() {
+    this.toastr.info('Just some information for you.');
   }
 
 
