@@ -216,7 +216,7 @@ export class DetailacuarioComponent implements OnInit {
       
     }
     showSuccess(text) {
-      this.toastr.success(text, 'Felicidades!');
+      this.toastr.success(text, 'Felicidades!...');
     }
   
   
