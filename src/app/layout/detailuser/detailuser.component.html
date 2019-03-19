@@ -1,13 +1,14 @@
 <div class="row">
-    <div class="col-auto">
-        <h4>Acuarios de:</h4>
+    <div class="col">
+        <h4>Acuarios de: {{usuarios.nombre}} {{usuarios.apellido}}</h4>
     </div>
-    <div class="col text-left" *ngFor="let usuario of usuarios">
-        <h4>{{usuario.nombre}} {{usuario.apellido}}</h4>
-    </div>
+    
+        
+    
 
     <div class="col-md-6 text-right">
-        <button class="btn btn-outline-primary" (click)="addUser()">Crear usuario</button>
+        <button class="btn btn-outline-primary" (click)="addAcuario()">Crear Acuario</button>
+        <button class="btn btn-outline-primary" (click)="volver()">Volver</button>
     </div>
 
 </div>
@@ -36,11 +37,11 @@
                             <td>{{acuario.description}}</td>
                             <td>{{acuario.pez}}</td>
                             <td>
-                                <button type="button" class="btn btn-outline-primary" (click)="detailAcuario(acuario.idacuario)">Ver</button>
+                                <button type="button" class="btn btn-outline-primary" (click)="detailAcuario(acuario.idacuario)">Configurar</button>
 
-                                <button type="button" class="btn btn-outline-primary" [routerLink]="['/signup']">Configurar</button>
+                                <!--button type="button" class="btn btn-outline-primary" [routerLink]="['/signup']">Configurar</button-->
                                 <!-- <button class="btn btn-outline-primary" (click)="editUser()">Editar</button> -->
-                                <button class="btn btn-outline-primary" (click)="editUser()">Desactivar</button>
+                                <!--button class="btn btn-outline-primary" (click)="editUser()">Desactivar</button-->
                             </td>
                         </tr>
                     </tbody>

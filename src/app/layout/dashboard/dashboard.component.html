@@ -1,5 +1,8 @@
 <div [@routerTransition]>
-    <h2 class="text-muted">Dashboard <small>Statistics Overview</small></h2>
+  
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
+    <h2 class="text-muted">Dashboard <small></small></h2>
     <div class="row">
         <div class="col-md-12">
             <ngb-carousel>
@@ -14,22 +17,22 @@
         </div>
     </div>
     <hr>
-    <div class="row">
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'primary'" [icon]="'fa-comments'" [count]="26" [label]="'New Comments!'" ></app-stat>
+    <div class="row toast-bottom-center">
+        <div class="col-xl-4 col-lg-6">
+            <app-stat [bgClass]="'primary'" [icon]="'fa-users'" [count]="3" [label]="'Usuarios!'" ></app-stat>
         </div>
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'warning'" [icon]="'fa-tasks'" [count]="12" [label]="'New task!'" ></app-stat>
+        <div class="col-xl-4 col-lg-6">
+            <app-stat [bgClass]="'warning'" [icon]="'fa-fish'" [count]="1" [label]="'Acuarios!'" ></app-stat>
         </div>
-        <div class="col-xl-3 col-lg-6">
-            <app-stat [bgClass]="'success'" [icon]="'fa-shopping-cart'" [count]="124" [label]="'New Orders!'" ></app-stat>
+        <!--div class="col-xl-3 col-lg-6">
+            <app-stat [bgClass]="'success'" [icon]="''" [count]="124" [label]="'New Orders!'" ></app-stat>
         </div>
         <div class="col-xl-3 col-lg-6">
             <app-stat [bgClass]="'danger'" [icon]="'fa-support'" [count]="13" [label]="'New Tickets!'"></app-stat>
-        </div>
+        </div-->
     </div>
-    <hr />
-    <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+    <!--hr /-->
+    <!--ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert-->
     <hr />
     <div class="row">
         <div class="col-lg-8">

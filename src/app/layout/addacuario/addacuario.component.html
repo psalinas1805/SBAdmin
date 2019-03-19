@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col">
+        <h4> Agregar Acuario</h4>
+
+    </div>
+    <div class="col-md-6 text-right">
+        <button class="btn btn-outline-primary" (click)="volver()">Volver</button>
+    </div>
+
+</div>
+<hr>
+
+<div class="login-page" [@routerTransition]>
+
+    <!--div class="row animated fadeIn fast sign-container "-->
+    <form [formGroup]="forma" (ngSubmit)="addAcuario()" class="col-md-12">
+
+        <div class="row">
+            <div class="col">
+
+                <div class="form-group" [ngClass]="{'has-danger':!forma.get('nombreAcuario').valid && forma.controls['nombreAcuario'].touched}">
+
+                    <label>Nombre del acuario</label>
+                    <input class="form-control" type="text" placeholder="Acuario living" formControlName="nombreAcuario">
+
+
+                    <div *ngIf="!forma.controls['nombreAcuario'].valid && forma.controls['nombreAcuario'].touched" class="form-control-feedback">
+                        El nombre de acuario es necesario.
+                    </div>
+ 
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="form-group" [ngClass]="{'has-danger':!forma.get('tipoPez').valid && forma.controls['tipoPez'].touched}">
+                    <label>Tipo de Pez</label>
+
+                    <input class="form-control" type="text" placeholder="GoldFish" formControlName="tipoPez">
+
+                    <div *ngIf="!forma.controls['tipoPez'].valid && forma.controls['tipoPez'].touched" class="form-control-feedback">
+                        El tipo de pez es necesario.
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="form-group row">
+            <!-- <button type="submit" [disabled]="forma.invalid" class="btn btn-outline-primary "> -->
+            <button type="submit" class="btn btn-outline-primary">
+                Guardar
+            </button>
+        </div>
+        <div class="row" *ngIf="this.submit">
+            <label class="alert alert-danger" role="alert" *ngIf="!this.result ">Error, Validar datos</label>
+        </div>
+
+    </form>
+
+
+
+    <!--/div-->
+
+
+    <div class="row animated fadeIn fast">
+        <div class="col-3-18">
+            {{ forma.valid}} {{forma.status}} {{ forma.value | json}}
+        </div>
+    </div>
+
+    <!-- <div>
+          <pre>{{ forma | json}}</pre>
+      </div> -->
+</div>

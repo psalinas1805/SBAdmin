@@ -12,6 +12,7 @@ import { HeaderComponent } from './components/header/header.component';
 //import { PruebaComponent } from './prueba/prueba.component';
 //import { AdduserComponent } from './adduser/adduser.component';
 import { ToastrModule } from 'ngx-toastr';
+//import { AddacuarioComponent } from './addacuario/addacuario.component';
 //import { DetailuserComponent } from './detailuser/detailuser.component';
 
 @NgModule({

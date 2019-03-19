@@ -9,7 +9,10 @@ import 'rxjs/Rx';
 })
 export class UsuariosService {
 
-  apiUrl:string = 'http://happypez.tk/AuthServices/api/index.php/';
+  apiUrl = 'http://happypez.cf/AuthServices/api/index.php/';
+
+//  apiUrl:string = 'http://happypez.cf:3000/';
+  headers = new Headers({'Content-Type': 'application/json'});
 
 
   constructor(private http: Http) { }
@@ -25,8 +28,9 @@ export class UsuariosService {
   getUser(user_id, method){
     console.log("search usuario service");
     
-    let userData = {'user_id':''}
-    userData.user_id = user_id;
+    //let userData = {'user_id':''}
+    //userData.user_id = user_id;
+    let userData = user_id;
     let body = JSON.stringify(userData);
     console.log(userData);
     
@@ -94,14 +98,17 @@ console.log(body);
   }
 
   editUser(usuario:Usuario, method){
-    console.log("sigUp usuario service");
+    console.log("editUser usuario service");
 
     let body = JSON.stringify(usuario);
     let headers = new Headers();
 
+    console.log("Cuerpo");
+    console.log(usuario.nombre);
+    
     return this.http.post(this.apiUrl + method, body, {headers})
         .map( res=>{
-          //console.log(res.json);
+          console.log(res.json);
           return res.json();
         });
   }
@@ -111,8 +118,8 @@ console.log(body);
   postData(data, type) {   
     return new Promise((resolve, reject) => {
       let body = JSON.stringify(data);
-      let headers = new Headers();
-      this.http.post(this.apiUrl + type, body, { headers: headers })
+      //let headers = new Headers();
+      this.http.post(this.apiUrl + type, body, { headers: this.headers })
         .subscribe(
           (data: any ) => {         
             resolve(data.json());
@@ -179,6 +186,19 @@ console.log(body);
     console.log("setConfigWeb service");
     
     let body = JSON.stringify(usuario);
+    let headers = new Headers();
+
+    return this.http.post(this.apiUrl + method, body, {headers})
+        .map( res=>{
+          console.log(res.json);
+          return res.json();
+        });
+  }
+
+  addAcuario(dataAcuario, method){
+    console.log("sigUp usuario service");
+    
+    let body = JSON.stringify(dataAcuario);
     let headers = new Headers();
 
     return this.http.post(this.apiUrl + method, body, {headers})

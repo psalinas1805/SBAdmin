@@ -156,10 +156,15 @@ export class AdduserComponent implements OnInit {
     } else {
       //actualizando
       console.log("Editando");
-
+      console.log(this.forma.value);
+      
       this.usuarioService.editUser(this.forma.value, 'editUser')
         .subscribe(data => {
           if (data.userData) {
+            console.log("username a");
+            console.log(this.forma.value);
+            
+            
             this.result = true;
             //this.limpiarForma();
             this.showSuccess('Configuración guardada exitosamente');
@@ -202,9 +207,13 @@ export class AdduserComponent implements OnInit {
   }
 
   cargaDatosForma(user_id) {
-    this.forma.controls['username'].disable();
+    
+    //this.forma.controls['username'].disable();
     this.forma.controls['password'].disable();
 
+    console.log("consulta usuario: ");
+    console.log(user_id);
+    
     this.usuarioService.getUser(user_id, 'getUser')
       .subscribe(data => {
         this.usuarioc = data.userData[0];

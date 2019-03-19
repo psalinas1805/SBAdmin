@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col">
-    <h4>Acuarios de </h4>
+    <h4>Acuarios de: {{usuarios.nombre}} {{usuarios.apellido}}</h4>
   </div>
   <div class="col-md-6 text-right">
     <button class="btn btn-outline-primary" (click)="volver()">Volver</button>
@@ -11,105 +11,44 @@
 <div [@routerTransition]>
 
 
-<div class="row animated fadeIn fast">
-  <!--Div cerrado al fondo-->
-  <div class="col-md-12">
+  <div class="row animated fadeIn fast container">
+    <!--Div cerrado al fondo-->
+    <div class="col-8">
 
-    <div class="table-responsive">
-      <div class="card mb-5">
-        <div class="card-header">Detalle</div>
-        <table class="card-body table table-hover">
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Acuario</th>
-              <th>Usuario</th>
-              <th>Tipo Pez</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let acuario of acuarios">
-              <td>{{acuario.idacuario}}</td>
-              <td>{{acuario.description}}</td>
-              <td>{{acuario.user_id}}</td>
-              <td>{{acuario.pez}}</td>
-
-            </tr>
-          </tbody>
-
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="edit;then Edit else NoEdit"></div>
-
-  <ng-template #Edit>
-    <div class="col-md-8">
-      <div class="table-responsive" style="overflow-y: hidden; overflow-x: hidden;">
+      <div class="table-responsive">
         <div class="card mb-5">
           <div class="card-header">Detalle</div>
-          <table class="card-body table table-hover">
+          <table class="card-body table table-hover  table-sm">
             <thead>
               <tr>
-                <th>Item</th>
-                <th>Min</th>
-                <th>Max</th>
+                <th>Id</th>
+                <th>Acuario</th>
+                <th>Usuario</th>
+                <th>Tipo Pez</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Temperatura</td>
-                <td>{{configInit.itempmin}}</td>
-                <td>{{configInit.itempmax}}</td>
-              </tr>
+              <tr *ngFor="let acuario of acuarios">
+                <td>{{acuario.idacuario}}</td>
+                <td>{{acuario.description}}</td>
+                <td>{{acuario.user_id}}</td>
+                <td>{{acuario.pez}}</td>
 
-              <tr>
-                <td>Ph</td>
-                <td>{{configInit.iphmin}}</td>
-                <td>{{configInit.iphmax}}</td>
-              </tr>
-              <tr>
-                <td>Luz Día</td>
-                <td>{{configInit.iluzdiamin.hour| number:'2.0-0'}}:{{configInit.iluzdiamin.minute| number:'2.0-0'}}</td>
-                <td>{{configInit.iluzdiamax.hour| number:'2.0-0'}}:{{configInit.iluzdiamax.minute| number:'2.0-0'}}</td>
-              </tr>
-              <tr>
-                <td>Luz Noche</td>
-                <td>{{configInit.iluznochemin.hour| number:'2.0-0'}}:{{configInit.iluznochemin.minute|
-                  number:'2.0-0'}}</td>
-                <td>{{configInit.iluznochemax.hour| number:'2.0-0'}}:{{configInit.iluznochemax.minute|
-                  number:'2.0-0'}}</td>
-              </tr>
-              <tr>
-                <td>Aireador</td>
-                <td>{{configInit.iairemin.hour| number:'2.0-0'}}:{{configInit.iairemin.minute| number:'2.0-0'}}</td>
-                <td>{{configInit.iairemax.hour| number:'2.0-0'}}:{{configInit.iairemax.minute| number:'2.0-0'}}</td>
-              </tr>
-              <tr>
-                <td>Filtro</td>
-                <td>{{configInit.ifiltromin.hour| number:'2.0-0'}}:{{configInit.ifiltromin.minute | number:'2.0-0'}}</td>
-                <td>{{configInit.ifiltromax.hour| number:'2.0-0'}}:{{configInit.ifiltromax.minute | number:'2.0-0'}}</td>
               </tr>
             </tbody>
 
-
-            <div class="text-center">
-              <button class="btn btn-outline-primary align-content-end" (click)="editDiv()">Editar</button>
-            </div>
           </table>
         </div>
       </div>
     </div>
-  </ng-template>
 
-  <ng-template #NoEdit>
-    <div class="col-md-8">
-      <div class="table-responsive">
-        <div class="card mb-5">
-          <div class="card-header">Cambio de configuración</div>
-          <form [formGroup]="forma" (ngSubmit)="Guardar()">
+    <div *ngIf="edit;then Edit else NoEdit"></div>
 
+    <ng-template #Edit>
+      <div class="col-md-8">
+        <div class="table-responsive" style="overflow-y: hidden; overflow-x: hidden;">
+          <div class="card" style="margin-bottom: 0px;">
+            <div class="card-header">Detalle</div>
             <table class="card-body table table-hover">
               <thead>
                 <tr>
@@ -120,82 +59,143 @@
               </thead>
               <tbody>
                 <tr>
-                  <td width="250">Temperatura</td>
-                  <td><input class="form-control" type="text" placeholder="tempmin" formControlName="tempmin"></td>
-                  <td><input class="form-control" type="text" placeholder="tempmax" formControlName="tempmax"></td>
-                </tr>
-                <tr>
-                  <td width="250">Ph</td>
-                  <td><input class="form-control" type="text" placeholder="tempmin" formControlName="phmin"></td>
-                  <td><input class="form-control" type="text" placeholder="tempmax" formControlName="phmax"></td>
+                  <td>Temperatura</td>
+                  <td>{{configInit.itempmin}}</td>
+                  <td>{{configInit.itempmax}}</td>
                 </tr>
 
                 <tr>
-                  <td width="250">Luz Día</td>
-                  <td>
-                    <ngb-timepicker [spinners]="OFF" formControlName="luzdiamin"></ngb-timepicker>
-                  </td>
-                  <!--input class="form-control" type="text" placeholder="tempmin" formControlName="luzdiamin"></td-->
-                  <td>
-                    <ngb-timepicker [spinners]="OFF" formControlName="luzdiamax"></ngb-timepicker>
-                  </td>
+                  <td>Ph</td>
+                  <td>{{configInit.iphmin}}</td>
+                  <td>{{configInit.iphmax}}</td>
                 </tr>
                 <tr>
-                  <td width="250">Luz Noche</td>
-                  <td>
-                    <ngb-timepicker [spinners]="OFF" formControlName="luznochemin"></ngb-timepicker>
-                  </td>
-                  <td>
-                    <ngb-timepicker [spinners]="OFF" formControlName="luznochemax"></ngb-timepicker>
-                  </td>
+                  <td>Luz Día</td>
+                  <td>{{configInit.iluzdiamin.hour| number:'2.0-0'}}:{{configInit.iluzdiamin.minute| number:'2.0-0'}}</td>
+                  <td>{{configInit.iluzdiamax.hour| number:'2.0-0'}}:{{configInit.iluzdiamax.minute| number:'2.0-0'}}</td>
                 </tr>
                 <tr>
-                  <td width="250">Aireador</td>
-                  <td>
-                    <ngb-timepicker [spinners]="OFF" formControlName="airemin"></ngb-timepicker>
-                  </td>
-                  <td>
-                    <ngb-timepicker [spinners]="OFF" formControlName="airemax"></ngb-timepicker>
-                  </td>
+                  <td>Luz Noche</td>
+                  <td>{{configInit.iluznochemin.hour| number:'2.0-0'}}:{{configInit.iluznochemin.minute|
+                    number:'2.0-0'}}</td>
+                  <td>{{configInit.iluznochemax.hour| number:'2.0-0'}}:{{configInit.iluznochemax.minute|
+                    number:'2.0-0'}}</td>
                 </tr>
                 <tr>
-                  <td width="250">Filtro</td>
-                  <td>
-                    <ngb-timepicker [spinners]="OFF" formControlName="filtromin"></ngb-timepicker>
-                  </td>
-                  <td>
-                    <ngb-timepicker [spinners]="OFF" formControlName="filtromax"></ngb-timepicker>
-                  </td>
+                  <td>Aireador</td>
+                  <td>{{configInit.iairemin.hour| number:'2.0-0'}}:{{configInit.iairemin.minute| number:'2.0-0'}}</td>
+                  <td>{{configInit.iairemax.hour| number:'2.0-0'}}:{{configInit.iairemax.minute| number:'2.0-0'}}</td>
                 </tr>
+                <tr>
+                  <td>Filtro</td>
+                  <td>{{configInit.ifiltromin.hour| number:'2.0-0'}}:{{configInit.ifiltromin.minute | number:'2.0-0'}}</td>
+                  <td>{{configInit.ifiltromax.hour| number:'2.0-0'}}:{{configInit.ifiltromax.minute | number:'2.0-0'}}</td>
+                </tr>
+                
+                <td></td>
+                <td></td>
+                <button class="btn btn-outline-primary btn-block align-content-end" (click)="editDiv()">Editar</button>
 
               </tbody>
+
             </table>
-
-
-            <div class="form-group row">
-              <!-- <button type="submit" [disabled]="forma.invalid" class="btn btn-outline-primary "> -->
-              <div class="col ">
-                <button type="submit" class="btn btn-outline-primary align-content-end">
-                  Guardar
-
-                </button>
-              </div>
-              <div class="col ">
-                <button class="btn btn-outline-danger align-content-start" (click)="editDiv()">
-                  Cancelar
-                </button>
-              </div>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
-    {{ forma.value | json}}
-  </ng-template>
-  <!--Fin tabla responsiva-->
-</div>
-<div class="row" *ngIf="this.submit">
-  <label class="alert alert-success" role="alert" *ngIf="this.result">Configuraciones guardadas exitósamente</label>
-  <label class="alert alert-danger" role="alert" *ngIf="!this.result ">Error, favor Validar datos</label>
-</div>
+    </ng-template>
+
+    <ng-template #NoEdit>
+      <div class="col-md-8">
+        <div class="table-responsive" style="overflow-y: hidden; overflow-x: hidden;">
+          <div class="card mb-5">
+            <div class="card-header">Cambio de configuración</div>
+            <form [formGroup]="forma" (ngSubmit)="Guardar()">
+
+              <table class="card-body table table-hover">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Min</th>
+                    <th>Max</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td width="250">Temperatura</td>
+                    <td><input class="form-control" type="text" placeholder="tempmin" formControlName="tempmin"></td>
+                    <td><input class="form-control" type="text" placeholder="tempmax" formControlName="tempmax"></td>
+                  </tr>
+                  <tr>
+                    <td width="250">Ph</td>
+                    <td><input class="form-control" type="text" placeholder="phmin" formControlName="phmin"></td>
+                    <td><input class="form-control" type="text" placeholder="phmax" formControlName="phmax"></td>
+                  </tr>
+
+                  <tr>
+                    <td width="250">Luz Día</td>
+                    <td>
+                      <ngb-timepicker [spinners]="OFF" formControlName="luzdiamin"></ngb-timepicker>
+                    </td>
+                    <!--input class="form-control" type="text" placeholder="tempmin" formControlName="luzdiamin"></td-->
+                    <td>
+                      <ngb-timepicker [spinners]="OFF" formControlName="luzdiamax"></ngb-timepicker>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="250">Luz Noche</td>
+                    <td>
+                      <ngb-timepicker [spinners]="OFF" formControlName="luznochemin"></ngb-timepicker>
+                    </td>
+                    <td>
+                      <ngb-timepicker [spinners]="OFF" formControlName="luznochemax"></ngb-timepicker>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="250">Aireador</td>
+                    <td>
+                      <ngb-timepicker [spinners]="OFF" formControlName="airemin"></ngb-timepicker>
+                    </td>
+                    <td>
+                      <ngb-timepicker [spinners]="OFF" formControlName="airemax"></ngb-timepicker>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td width="250">Filtro</td>
+                    <td>
+                      <ngb-timepicker [spinners]="OFF" formControlName="filtromin"></ngb-timepicker>
+                    </td>
+                    <td>
+                      <ngb-timepicker [spinners]="OFF" formControlName="filtromax"></ngb-timepicker>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+
+              <div class="form-group row">
+                <!-- <button type="submit" [disabled]="forma.invalid" class="btn btn-outline-primary "> -->
+                <div class="col"></div>
+                <div class="col " style="text-align: end; margin-left: 10px; margin-right: 10px;">
+                  <button type="submit" class="btn btn-outline-primary" style="margin-left: 10px; margin-right: 10px;">
+                    Guardar
+                  </button>
+                  <button class="btn btn-outline-danger align-content-end" (click)="editDiv()" style="margin-left: 10px; margin-right: 10px;">
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+      <!-- {{ forma.value | json}}-->
+    </ng-template>
+    <!--Fin tabla responsiva-->
+  </div>
+  <div class="row" *ngIf="this.submit">
+    <label class="alert alert-success" role="alert" *ngIf="this.result">Configuraciones guardadas exitósamente</label>
+    <label class="alert alert-danger" role="alert" *ngIf="!this.result ">Error, favor Validar datos</label>
+  </div>
 </div>

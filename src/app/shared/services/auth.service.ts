@@ -8,7 +8,7 @@ import { Usuario } from '../interfaces/usuario.interface';
 })
 export class AuthService {
 
-  apiUrl:string = 'http://happypez.tk/AuthServices/api/index.php/';
+  apiUrl:string = 'http://happypez.cf/AuthServices/api/index.php/';
 
 
   constructor(public http: Http) {

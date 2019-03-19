@@ -20,8 +20,9 @@ const routes: Routes = [
             { path: 'adduser/:user_id', loadChildren: './adduser/adduser.module#AdduserModule' },
             { path: 'prueba', loadChildren: './prueba/prueba.module#PruebaModule' },
             { path: 'detailuser/:user_id', loadChildren: './detailuser/detailuser.module#DetailuserModule' },
-            { path: 'detailacuario/:user_id/:idacuario', loadChildren: './detailacuario/detailacuario.module#DetailacuarioModule' }
-
+            { path: 'detailacuario/:user_id/:idacuario', loadChildren: './detailacuario/detailacuario.module#DetailacuarioModule' },
+            { path: 'addacuario/:user_id', loadChildren: './addacuario/addacuario.module#AddacuarioModule' }
+            
         ]
     }
 ];
